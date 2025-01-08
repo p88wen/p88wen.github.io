@@ -1,0 +1,45 @@
+[
+    {
+        "name": "推荐",
+        "list": [
+            {
+                "url": "",
+                "icon": "https://gh.sixyin.com/raw.githubusercontent.com/PizazzGY/Share/main/莫比乌斯环.jpg"
+            }
+        ]
+    },
+    {
+        "name": "本地包",
+        "list": [
+            {
+                "name": "单线路",
+                "url": "https://lz.ly93.cc/1074/217214974/单线路.zip",
+                "icon": "",
+                "version": "20250108"
+            },
+            {
+                "name": "多线路",
+                "url": "https://lz.ly93.cc/1074/217214986/多线路.zip",
+                "icon": "",
+                "version": "20250108"
+            }
+        ]
+    },
+    {
+        "name": "补丁",
+        "list": [
+            {
+                "name": "单线路补丁",
+                "url": "https://gh.sixyin.com/raw.githubusercontent.com/PizazzGY/Share/main/单线路补丁.zip",
+                "icon": "",
+                "version": "20250107"
+            },
+            {
+                "name": "多线路补丁",
+                "url": "https://gh.sixyin.com/raw.githubusercontent.com/PizazzGY/Share/main/多线路补丁.zip",
+                "icon": "",
+                "version": "20250107"
+            }
+        ]
+    }
+]
