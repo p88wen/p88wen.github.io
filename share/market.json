@@ -12,6 +12,12 @@
         "name": "本地包",
         "list": [
             {
+                "name": "tvbox",
+                "url": "https://p88wen.github.io/share/tvbox.zip",
+                "icon": "",
+                "version": "20250108"
+            },
+            {
                 "name": "单线路",
                 "url": "https://lz.ly93.cc/1074/217214974/单线路.zip",
                 "icon": "",
