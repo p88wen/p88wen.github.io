@@ -43,7 +43,7 @@
             "searchable": 0,
             "changeable": 0,
             "indexs": 0,
-            "https://p88wen.github.io/share/market.json"
+            "ext": "https://p88wen.github.io/share/market.json"
         },
         {
             "key": "push_agent",
