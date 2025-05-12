@@ -35,4 +35,3 @@ jobs:
           git add .
           git commit *.json -m "Add generated file"
           git push
-          fi 
