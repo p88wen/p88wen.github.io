@@ -27,10 +27,11 @@ jobs:
       - name: Commit changes 
         run: | 
           # 配置Git用户信息 
-          git config --global user.name   "p88wen" 
-          git config --global user.email   "xiayee87@163.com"  
+          git config --local user.email "xiayee87@163.com"
+          git config --local user.name "p88wen"
           # 添加并提交文件 
-          git add ./share/*.json 
+          git add .
+          git commit *.json -m "Add generated file"
           if git diff --cached --quiet; then 
             echo "No changes detected" 
           else 
