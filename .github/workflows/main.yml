@@ -32,6 +32,11 @@ jobs:
           git config --local user.email "xiayee87@163.com"
           git config --local user.name "p88wen"
           # 添加并提交文件 
-          git add .
-          git commit *.json -m "Add generated file"
-          git push
+          git add . 
+          git commit *.json -m "Add generated file" 
+          if git diff --cached --quiet; then 
+            echo "No changes detected"
+          else
+            git commit -m "Auto-commit: Update JSON files [$(date +'%Y-%m-%d %H:%M')]"
+            git push origin HEAD:${{ github.ref  }}
+          fi
