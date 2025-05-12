@@ -25,6 +25,8 @@ jobs:
       - name: Execute script 
         run: python aa.py    # 执行生成JSON的脚本 
       - name: Commit changes 
+        env: 
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: | 
           # 配置Git用户信息 
           git config --local user.email "xiayee87@163.com"
