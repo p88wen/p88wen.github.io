@@ -59,7 +59,7 @@ class Spider:
                             "name": apk_name_part,
                             "url":downloadurl,
                             "icon":'http://pic.2265.com/upload/2023-8/202381114550184.png',
-                            "date": formatted_date,
+                            #"date": formatted_date,
                             "version": f"{suffix}-{version}" if suffix and version else ''
                         }
                         apk_list.append(apk_info) 
