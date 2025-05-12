@@ -58,7 +58,7 @@ class Spider:
                         apk_info = {
                             "name": apk_name_part,
                             "url":downloadurl,
-                            "icon":'http://pic.2265.com/upload/2023-8/202381114550184.png',
+                            "icon":'',
                             "version": f"{suffix}-{version}" if suffix and version else ''
                         }
                         apk_list.append(apk_info) 
