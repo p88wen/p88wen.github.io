@@ -33,10 +33,21 @@ class Spider:
                 data = response.json() 
                 
                 # 初始化当前维护者的数据容器 
-                apk_list = []
-                info = {"name":"推荐","list":[{"name":"更新apk","url":"","icon":"","version":""}]}
-                apk_list.append(info) 
-                 
+                #apk_list = []
+                # 初始化维护者数据容器（推荐条目始终在首位）
+                apk_list = [
+                    {
+                        "name": "推荐",
+                        "list": [
+                            {
+                                "name": "更新apk",
+                                "url": "",
+                                "icon": "",
+                                "version": ""
+                            }
+                        ]
+                    }
+                ] 
                 for apk_name, details in data.items(): 
                     if ".apk" in apk_name:
                         # 提取基础信息 
