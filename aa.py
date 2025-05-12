@@ -75,7 +75,7 @@ class Spider:
                 print(f"JSON解析错误: {e}") 
  
         # 将字符串转换为字节类型 
-        self.writeFile("market.json",  json.dumps(final_output,  ensure_ascii=False).encode('utf-8')) 
+        self.writeFile("share/apk.json",  json.dumps(final_output,  ensure_ascii=False).encode('utf-8')) 
         return final_output 
  
  
