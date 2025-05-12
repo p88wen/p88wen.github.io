@@ -18,7 +18,7 @@ class Spider:
             f.write(content)  
  
     def process_apk_info(self):
-        final_output = []  # 最终结果容器 
+        final_output = [{"name":"推荐","list":[{"name":"更新apk","url":"","icon":"","version":""}]}]  # 最终结果容器 
         config = ["fongmi", "okjack"]
         for own in config:
             url = f'https://github.com/FongMi/Release/tree-commit-info/{own}/apk/release' 
@@ -33,21 +33,8 @@ class Spider:
                 data = response.json() 
                 
                 # 初始化当前维护者的数据容器 
-                #apk_list = []
-                # 初始化维护者数据容器（推荐条目始终在首位）
-                apk_list = [
-                    {
-                        "name": "推荐",
-                        "list": [
-                            {
-                                "name": "更新apk",
-                                "url": "",
-                                "icon": "",
-                                "version": ""
-                            }
-                        ]
-                    }
-                ] 
+                apk_list = []
+
                 for apk_name, details in data.items(): 
                     if ".apk" in apk_name:
                         # 提取基础信息 
