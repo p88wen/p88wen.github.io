@@ -1,0 +1,39 @@
+name: Daily Python Task 
+on: 
+  schedule: 
+    - cron: '0 16 * * *'  # UTC时间每天16点（对应北京时间00点） 
+  workflow_dispatch:      # 支持手动触发 
+jobs: 
+  generate-and-commit: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: Checkout code 
+        uses: actions/checkout@v3 
+        with: 
+          fetch-depth: 0  # 获取完整提交历史 
+          persist-credentials: true  # 保留推送权限 
+      - name: Set up Python 
+        uses: actions/setup-python@v4 
+        with: 
+          python-version: "3.80"  # 指定Python版本 
+      - name: Install pipreqs 
+        run: pip install pipreqs 
+      - name: Generate requirements.txt  
+        run: pipreqs . --force 
+      - name: Install dependencies 
+        run: pip install -r requirements.txt  
+      - name: Execute script 
+        run: python aa.py    # 执行生成JSON的脚本 
+      - name: Commit changes 
+        run: | 
+          # 配置Git用户信息 
+          git config --global user.name   "p88wen" 
+          git config --global user.email   "xiayee87@163.com"  
+          # 添加并提交文件 
+          git add ./share/*.json 
+          if git diff --cached --quiet; then 
+            echo "No changes detected" 
+          else 
+            git commit -m "Auto-commit: Update JSON files [$(date +'%Y-%m-%d %H:%M')]" 
+            git push origin HEAD:${{ github.ref  }} 
+          fi 
