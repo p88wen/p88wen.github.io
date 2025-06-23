@@ -18,7 +18,7 @@ class Spider:
             f.write(content)  
  
     def process_apk_info(self):
-        final_output = [{"name":"推荐","list":[{"name":"更新apk","url":"","icon":"","version":""}]}]  # 最终结果容器 
+        final_output = [{"name":"推荐","list":[{"name":"影视更新","url":"","icon":"","version":""}]}]  # 最终结果容器 
         config = ["fongmi", "okjack"]
         for own in config:
             url = f'https://github.com/FongMi/Release/tree-commit-info/{own}/apk/release' 
@@ -53,7 +53,7 @@ class Spider:
                         #version = version_match.group(1)  if version_match else None 
                         title_match = re.search(r'title="([^"]+)"',  details["shortMessageHtmlLink"]) 
                         version = title_match.group(1).replace("Update to ", "") if title_match else None 
-                        downloadurl = f'https://gh-proxy.com/https://raw.github.com/FongMi/Release/refs/heads/{own}/apk/release/{apk_name}'
+                        downloadurl = f'https://gh-proxy.com/raw.github.com/FongMi/Release/refs/heads/{own}/apk/release/{apk_name}'
                         # 构建APK信息对象 
                         apk_info = {
                             "name": apk_name_part,
