@@ -18,7 +18,7 @@ class Spider:
             f.write(content)  
  
     def process_apk_info(self):
-        final_output = [{"name":"推荐","list":[{"name":"影视更新","url":"","icon":"","version":""}]}]  # 最终结果容器 
+        final_output = [{"name":"推荐","list":[{"name":"影视更新","url":"","icon":"https://p88wen.github.io/fongmi.png","version":"NEW"}]}]  # 最终结果容器 
         config = ["fongmi", "okjack"]
         for own in config:
             url = f'https://github.com/FongMi/Release/tree-commit-info/{own}/apk/release' 
