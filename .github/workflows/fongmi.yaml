@@ -1,0 +1,60 @@
+name: Sync Release APKs 
+ 
+on: 
+  schedule: 
+    - cron: '0 16 * * *'  # UTC时间每 
+  workflow_dispatch:     # 支持手动触发 
+ 
+jobs: 
+  sync-apks: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: 初始化工作目录 
+        run: | 
+          mkdir -p app/akjack app/fongmi 
+          echo "创建目标目录完成" 
+ 
+      - name: 配置Git全局设置 
+        run: | 
+          git config --global user.name   "GitHub Actions" 
+          git config --global user.email   "actions@github.com"  
+ 
+      # 拉取akjack分支内容 
+      - name: 拉取FongMi/Release:okjack分支 
+        working-directory: app/akjack 
+        run: | 
+          git init 
+          git remote add origin https://github.com/FongMi/Release.git   
+          git config core.sparsecheckout   true 
+          echo "okjack/apk/release/*" > .git/info/sparse-checkout 
+          git fetch --depth=1 origin okjack 
+          git checkout FETCH_HEAD -- okjack/apk/release 
+          mv okjack/apk/release/* ./ 
+          rm -rf okjack 
+ 
+      # 拉取fongmi分支内容 
+      - name: 拉取FongMi/Release:fongmi分支 
+        working-directory: app/fongmi  # 推测的工作目录 
+        run: | 
+          git init 
+          git remote add origin https://github.com/FongMi/Release.git   
+          git config core.sparsecheckout   true 
+          echo "fongmi/apk/release/*" > .git/info/sparse-checkout  # 推测的路径，需与实际分支结构匹配 
+          git fetch --depth=1 origin fongmi 
+          git checkout FETCH_HEAD -- fongmi/apk/release  # 推测的路径 
+          mv fongmi/apk/release/* ./  # 推测的移动命令 
+          rm -rf fongmi  # 清理临时目录 
+ 
+      # 【推测的后续步骤】将同步的APK提交并推送到当前仓库 
+      - name: 检出当前仓库代码 (如果需要提交回仓库) 
+        uses: actions/checkout@v4  # 使用官方checkout action 
+ 
+      - name: 提交APK文件变更 
+        run: | 
+          git add app/akjack/* app/fongmi/* 
+          git commit -m "Sync APKs from FongMi/Release at $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit" 
+          git push origin main  # 假设推送到main分支，请根据实际情况修改 
+ 
+      # 【可选步骤】通知或其他后续处理 
+      # - name: Send notification 
+      #   ... (例如发送到Slack, Email等)
