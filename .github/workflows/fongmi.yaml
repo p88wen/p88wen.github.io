@@ -27,7 +27,8 @@ jobs:
           git remote add origin https://github.com/FongMi/Release.git  
           git config core.sparsecheckout  true
           echo "okjack/apk/release/*" > .git/info/sparse-checkout 
-          git fetch --depth=1 origin okjack
+          #git fetch --depth=1 origin okjack
+          git fetch origin okjack 
           git checkout FETCH_HEAD -- okjack/apk/release 
           mv okjack/apk/release/* ./
           rm -rf okjack
@@ -40,6 +41,7 @@ jobs:
           git remote add origin https://github.com/FongMi/Release.git  
           git config core.sparsecheckout  true
           echo "fongmi/apk/release/*" > .git/info/sparse-checkout
+          #git fetch --depth=1 origin fongmi
           git fetch --depth=1 origin fongmi
           git checkout FETCH_HEAD -- fongmi/apk/release
           mv fongmi/apk/release/* ./
