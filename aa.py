@@ -70,7 +70,7 @@ class Spider:
                             "icon":'https://p88wen.github.io/fongmi.png',
                             "version": f"{suffix}-{version}" if suffix and version else ''
                         }
-                        apk_list_bakt.append(apk_info_bak) 
+                        apk_list_bak.append(apk_info_bak) 
                 
                 # 将当前维护者数据添加到最终结果 
                 final_output.append({ 
@@ -81,7 +81,7 @@ class Spider:
                 # 将当前维护者数据添加到最终结果 
                 final_output.append({ 
                     "name": own + "备用",
-                    "list": apk_list 
+                    "list": apk_list_bak 
                 }) 
             except requests.RequestException as e: 
                 print(f"请求错误: {e}") 
