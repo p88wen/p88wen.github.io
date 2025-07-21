@@ -34,7 +34,7 @@ class Spider:
                 
                 # 初始化当前维护者的数据容器 
                 apk_list = []
-
+                apk_list_bak = []
                 for apk_name, details in data.items(): 
                     if ".apk" in apk_name:
                         # 提取基础信息 
@@ -53,8 +53,9 @@ class Spider:
                         #version = version_match.group(1)  if version_match else None 
                         title_match = re.search(r'title="([^"]+)"',  details["shortMessageHtmlLink"]) 
                         version = title_match.group(1).replace("Update to ", "") if title_match else None 
-                        #downloadurl = f'https://gh-proxy.com/raw.githubusercontent.com/FongMi/Release/refs/heads/{own}/apk/release/{apk_name}'
-                        downloadurl = f'https://p88wen.github.io/{own}/{apk_name}'
+                        #downloadurl = f'https://gh-proxy.com/raw.githubusercontent.com/FongMi/Release/refs/heads/{own}/apk/release/{apk_name}' 
+                        downloadurl = f'https://hk.gh-proxy.com/raw.githubusercontent.com/FongMi/Release/refs/heads/{own}/apk/release/{apk_name}'
+                        downloadurl_1 = f'https://p88wen.github.io/{own}/{apk_name}'
                         # 构建APK信息对象 
                         apk_info = {
                             "name": apk_name_part,
@@ -63,10 +64,23 @@ class Spider:
                             "version": f"{suffix}-{version}" if suffix and version else ''
                         }
                         apk_list.append(apk_info) 
+                        apk_info_bak = {
+                            "name": apk_name_part,
+                            "url":downloadurl_1,
+                            "icon":'https://p88wen.github.io/fongmi.png',
+                            "version": f"{suffix}-{version}" if suffix and version else ''
+                        }
+                        apk_list_bakt.append(apk_info_bak) 
                 
                 # 将当前维护者数据添加到最终结果 
                 final_output.append({ 
                     "name": own,
+                    "list": apk_list 
+                }) 
+
+                # 将当前维护者数据添加到最终结果 
+                final_output.append({ 
+                    "name": own + "备用",
                     "list": apk_list 
                 }) 
             except requests.RequestException as e: 
