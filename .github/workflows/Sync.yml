@@ -1,8 +1,8 @@
 name: Sync Repositories 
  
 on:
-  schedule:
-    - cron: '0 16 * * *'  # 每天UTC时间00:00运行
+  #schedule:
+  #  - cron: '0 16 * * *'  # 每天UTC时间00:00运行
   workflow_dispatch:     # 支持手动触发 
  
 jobs:
