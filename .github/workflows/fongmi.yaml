@@ -1,68 +1,72 @@
 name: Sync Release APKs
  
-on:
-  schedule:
-    - cron: "0 16 * * *"  # 每天午夜执行 
-  workflow_dispatch:     # 支持手动触发
+on: 
+  schedule: 
+    - cron: '0 16 * * *'  # 每天UTC时间00:00运行（北京时间08:00） 
+  workflow_dispatch:     # 支持手动触发 
  
-jobs:
-  sync-apks:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 初始化工作目录
-        run: |
-          mkdir -p app/akjack app/fongmi
-          echo "创建目标目录完成"
+jobs: 
+  sync: 
+    runs-on: ubuntu-latest 
  
-      - name: 配置Git全局设置 
-        run: |
-          git config --global user.name  "GitHub Actions"
-          git config --global user.email  "actions@github.com" 
+    steps: 
+      - name: 检出当前仓库 
+        uses: actions/checkout@v4 
+        with: 
+          fetch-depth: 0  # 获取完整历史（便于分支操作和提交） 
  
-      # 拉取akjack分支内容 
-      - name: 拉取FongMi/Release:okjack分支 
-        working-directory: app/akjack 
-        run: |
-          git init
+      - name: 配置Git用户 
+        run: | 
+          git config user.name   "GitHub Actions" 
+          git config user.email   "actions@github.com"  
+ 
+      - name: 同步 okjack 分支的 apk/release 目录 
+        run: | 
+          # 创建临时目录并初始化Git仓库（用于稀疏检出） 
+          mkdir -p okjack_temp && cd okjack_temp 
+          git init 
+          # 添加远程仓库并启用稀疏检出模式 
           git remote add origin https://github.com/FongMi/Release.git  
-          git config core.sparsecheckout  true
-          echo "okjack/apk/release/*" > .git/info/sparse-checkout 
-          #git fetch --depth=1 origin okjack
-          git fetch origin okjack 
-          git checkout FETCH_HEAD -- okjack/apk/release 
-          mv okjack/apk/release/* ./
-          rm -rf okjack
+          git config core.sparseCheckout  true 
+          # 仅拉取 okjack 分支的 apk/release 目录 
+          echo "apk/release/" > .git/info/sparse-checkout 
+          # 拉取目标分支（--depth=1 仅获取最新提交，减少资源消耗） 
+          git pull --depth=1 origin okjack 
+          # 返回工作流根目录，清空并复制目标文件到当前仓库的 okjack 目录 
+          cd .. 
+          rm -rf okjack/*  # 保留目录结构，仅清空内容 
+          cp -r okjack_temp/apk/release/* okjack/ 
+          rm -rf okjack_temp  # 清理临时目录 
  
-      # 拉取fongmi分支内容
-      - name: 拉取FongMi/Release:fongmi分支
-        working-directory: app/fongmi
-        run: |
-          git init
+      - name: 提交 okjack 目录更新 
+        run: | 
+          git add okjack/  # 仅跟踪 okjack 目录的变更 
+          # 检查是否有变更，有则提交 
+          if ! git diff-index --quiet HEAD -- okjack/; then 
+            git commit -m "自动同步: okjack 分支 apk/release 更新" 
+            git push  # 提交后立即推送，避免后续操作覆盖 
+          fi 
+ 
+      - name: 同步 fongmi 分支的 apk/release 目录 
+        run: | 
+          # 重复上述稀疏检出流程，针对 fongmi 分支 
+          mkdir -p fongmi_temp && cd fongmi_temp 
+          git init 
           git remote add origin https://github.com/FongMi/Release.git  
-          git config core.sparsecheckout  true
-          echo "fongmi/apk/release/*" > .git/info/sparse-checkout
-          #git fetch --depth=1 origin fongmi
-          git fetch --depth=1 origin fongmi
-          git checkout FETCH_HEAD -- fongmi/apk/release
-          mv fongmi/apk/release/* ./
-          rm -rf fongmi
+          git config core.sparseCheckout  true 
+          echo "apk/release/" > .git/info/sparse-checkout 
+          git pull --depth=1 origin fongmi 
+          # 复制到当前仓库的 fongmi 目录 
+          cd .. 
+          rm -rf fongmi/* 
+          cp -r fongmi_temp/apk/release/* fongmi/ 
+          rm -rf fongmi_temp 
  
-      # 优化步骤 
-      - name: 清理Git残留文件
-        run: |
-          find app -name ".git" -exec rm -rf {} \;
-          find app -name ".gitignore" -delete 
- 
-      - name: 显示文件结构
-        run: |
-          echo "当前目录结构："
-          find app -type f | sort
- 
-      - name: 存储缓存（可选）
-        uses: actions/cache@v3 
-        with:
-          path: |
-            app/akjack
-            app/fongmi
-          key: apk-cache-${{ github.run_id  }}
-          retention-days: 3
+      - name: 提交 fongmi 目录更新 
+        run: | 
+          git add fongmi/  # 仅跟踪 fongmi 目录的变更 
+          # 检查是否有变更，有则提交 
+          if ! git diff-index --quiet HEAD -- fongmi/; then 
+            git commit -m "自动同步: fongmi 分支 apk/release 更新" 
+            git push 
+          fi 
