@@ -1,0 +1,44 @@
+name: Sync Repositories 
+ 
+on:
+  schedule:
+    - cron: '0 16 * * *'  # 每天UTC时间00:00运行
+  workflow_dispatch:     # 支持手动触发 
+ 
+jobs:
+  sync:
+    runs-on: ubuntu-latest 
+ 
+    steps:
+    - name: 检出当前仓库
+      uses: actions/checkout@v4 
+      with:
+        fetch-depth: 0  # 获取完整历史（便于分支操作）
+ 
+    - name: 配置Git用户 
+      run: |
+        git config user.name  "GitHub Actions"
+        git config user.email  "actions@github.com" 
+ 
+    - name: 清理旧目录
+      run: |
+        rm -rf okjack fongmi
+        mkdir -p okjack fongmi 
+ 
+    - name: 克隆okjack分支 
+      run: |
+        git clone --depth=1 --branch=okjack https://github.com/FongMi/Release.git  okjack_temp 
+        cp -r okjack_temp/* okjack/
+        rm -rf okjack_temp 
+ 
+    - name: 克隆fongmi分支
+      run: |
+        git clone --depth=1 --branch=fongmi https://github.com/FongMi/Release.git  fongmi_temp 
+        cp -r fongmi_temp/* fongmi/
+        rm -rf fongmi_temp 
+ 
+    - name: 提交更改 
+      run: |
+        git add .
+        git diff-index --quiet HEAD || git commit -m "自动同步: okjack & fongmi分支更新"
+        git push 
