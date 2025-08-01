@@ -1,5 +1,5 @@
 {
-  "code": 405,
-  "name": "4.0.5",
-  "desc": "* [App]\n* 更新 room 套件\n* 更新 quickjs 套件\n* 修正部分繁簡轉換\n* 支援 Android 16\n* [Vod]\n* 調整片頭片尾限制"
+  "code": 407,
+  "name": "4.0.7",
+  "desc": "* [App]\n* 修正 youtube 播放清單"
 }
