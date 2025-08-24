@@ -1,5 +1,5 @@
 {
-  "code": 407,
-  "name": "4.0.7",
-  "desc": "* [App]\n* 修正 youtube 播放清單"
+  "code": 409,
+  "name": "4.0.9",
+  "desc": "* 不支援安卓7以下設備\n* proxy 設定改為配置方式\n* m3u 支持解析 http-user-agent\n* 移除 radio 背景圖片\n* 修正多 epg 解析問題\n* yt 影片支持顯示名稱\n* 調整 vod 顯示樣式\n* 首頁站點支持跑馬燈\n* 歷史紀錄顯示進度\n* 移除首頁搜尋欄\n* 首頁顯示站點"
 }
