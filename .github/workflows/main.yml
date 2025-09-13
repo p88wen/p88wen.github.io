@@ -21,11 +21,13 @@ jobs:
       - name: Generate requirements.txt  
         run: pipreqs . --force 
       - name: Fix package name case  # 新增步骤 
-        run: sed -i 's/^Requests==/requests==/' requirements.txt  
+        run: |
+          sed -i 's/^Requests==/requests==/' requirements.txt  
+          sed -i 's/^requests==2.32.5/requests>=2.25.1/' requirements.txt 
       - name: Install dependencies 
         run: |
-            pip install --upgrade pip 
-            pip install -r requirements.txt  
+          pip install --upgrade pip
+          pip install -r requirements.txt  
       - name: Execute script 
         run: python aa.py    # 执行生成JSON的脚本 
       - name: Commit changes 
