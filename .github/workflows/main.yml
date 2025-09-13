@@ -20,6 +20,8 @@ jobs:
         run: pip install pipreqs 
       - name: Generate requirements.txt  
         run: pipreqs . --force 
+      - name: Fix package name case  # 新增步骤 
+        run: sed -i 's/^Requests==/requests==/' requirements.txt  
       - name: Install dependencies 
         run: pip install -r requirements.txt  
       - name: Execute script 
