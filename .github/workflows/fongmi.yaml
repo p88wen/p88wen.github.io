@@ -54,7 +54,8 @@ jobs:
           git init 
           git remote add origin https://github.com/FongMi/Release.git  
           git config core.sparseCheckout  true 
-          echo "apk/release/" > .git/info/sparse-checkout 
+          #echo "apk/release/" > .git/info/sparse-checkout 
+          echo "apk/" > .git/info/sparse-checkout 
           git pull --depth=1 origin fongmi 
           # 复制到当前仓库的 fongmi 目录 
           cd .. 
