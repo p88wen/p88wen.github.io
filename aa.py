@@ -21,12 +21,15 @@ class Spider:
         final_output = [{"name":"推荐","list":[{"name":"影视更新","url":"","icon":"https://p88wen.github.io/fongmi.png","version":"NEW"}]}]  # 最终结果容器 
         config = ["fongmi", "okjack"]
         for own in config:
-            url = f'https://github.com/FongMi/Release/tree-commit-info/{own}/apk/release' 
+            #url = f'https://github.com/FongMi/Release/tree-commit-info/{own}/apk/release' 
             headers = {
                 "Content-Type": "application/json;charset=UTF-8",
                 "github-verified-fetch": "true",
                 "x-requested-with": "XMLHttpRequest"
             }
+            base_url = "https://github.com/FongMi/Release/tree-commit-info" 
+            path = "apk" if own == "fongmi" else "apk/release"
+            url = f"{base_url}/{own}/{path}"
             try:
                 response = requests.get(url,  headers=headers)
                 response.raise_for_status() 
