@@ -60,7 +60,8 @@ jobs:
           # 复制到当前仓库的 fongmi 目录 
           cd .. 
           rm -rf fongmi/* 
-          cp -r fongmi_temp/apk/release/* fongmi/ 
+          #cp -r fongmi_temp/apk/release/* fongmi/ 
+          cp -r fongmi_temp/apk/* fongmi/ 
           rm -rf fongmi_temp 
  
       - name: 提交 fongmi 目录更新 
