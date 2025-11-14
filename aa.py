@@ -58,7 +58,7 @@ class Spider:
                         title_match = re.search(r'title="([^"]+)"',  details["shortMessageHtmlLink"]) 
                         version = title_match.group(1).replace("Update to ", "") if title_match else None 
                         #downloadurl = f'https://gh-proxy.com/raw.githubusercontent.com/FongMi/Release/refs/heads/{own}/apk/release/{apk_name}' 
-                        downloadurl = f'https://hk.gh-proxy.com/raw.githubusercontent.com/FongMi/Release/refs/heads/{own}/apk/release/{apk_name}'
+                        downloadurl = f'https://hk.gh-proxy.com/raw.githubusercontent.com/FongMi/Release/refs/heads/{own}/{path}/{apk_name}'
                         downloadurl_1 = f'https://p88wen.github.io/{own}/{apk_name}'
                         # 构建APK信息对象 
                         apk_info = {
