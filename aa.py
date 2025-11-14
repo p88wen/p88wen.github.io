@@ -45,7 +45,8 @@ class Spider:
                         
                         # 正则匹配架构和后缀
                         abi = re.search(r'-(\w+)_',  apk_name).group(1) if re.search(r'-(\w+)_',  apk_name) else None 
-                        suffix = re.search(r'_([^-.]+)\.apk$',  apk_name).group(1) if re.search(r'_([^-.]+)\.apk$',  apk_name) else None 
+                        #suffix = re.search(r'_([^-.]+)\.apk$',  apk_name).group(1) if re.search(r'_([^-.]+)\.apk$',  apk_name) else None 
+                        suffix = re.search(r'_(.+)\.apk$',  apk_name).group(1) if re.search(r'_(.+)\.apk$',  apk_name) else None
                         
                         # 日期处理 
                         date_obj = datetime.fromisoformat(details["date"]) 
