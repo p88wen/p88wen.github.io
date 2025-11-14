@@ -64,14 +64,14 @@ class Spider:
                             "name": apk_name_part,
                             "url":downloadurl,
                             "icon":'https://p88wen.github.io/fongmi.png',
-                            "version": f"{suffix}-{version}" if suffix and version else ''
+                            "version": f"{suffix}-{version}" if suffix or version else ''
                         }
                         apk_list.append(apk_info) 
                         apk_info_bak = {
                             "name": apk_name_part,
                             "url":downloadurl_1,
                             "icon":'https://p88wen.github.io/fongmi.png',
-                            "version": f"{suffix}-{version}" if suffix and version else ''
+                            "version": f"{suffix}-{version}" if suffix or version else ''
                         }
                         apk_list_bak.append(apk_info_bak) 
                 
