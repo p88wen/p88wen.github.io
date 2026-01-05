@@ -1,5 +1,5 @@
 {
-  "code": 508,
-  "name": "5.0.8",
-  "desc": "* playerContent 支持 artwork 欄位"
+  "code": 510,
+  "name": "5.1.0",
+  "desc": "* 優化重播功能\n* 修正無效的NAL長度"
 }
