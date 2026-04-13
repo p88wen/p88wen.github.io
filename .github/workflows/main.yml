@@ -23,7 +23,9 @@ jobs:
       - name: Fix package name case  # 新增步骤 
         run: |
           sed -i 's/^Requests==/requests==/' requirements.txt  
-          sed -i 's/^requests==2.32.5/requests>=2.25.1/' requirements.txt 
+          # sed -i 's/^requests==2.32.5/requests>=2.25.1/' requirements.txt 
+          sed -i '/^requests==/d' requirements.txt
+          echo "requests>=2.25.1" >> requirements.txt
       - name: Install dependencies 
         run: |
           pip install --upgrade pip
